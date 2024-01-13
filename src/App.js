@@ -1,5 +1,7 @@
 import React from "react";
 import Todo from "./Components/Todo";
+import Form from "./Components/Form";
+import FilterButton from "./Components/FilterButton";
 
 function App(props) {
   const taskList = props.tasks?.map((task) => (
@@ -14,18 +16,12 @@ function App(props) {
   return (
     <div className="todoapp stack-large">
       <h1>TodoMatic</h1>
+      <Form />
 
       <div className="filters btn-group stack-exception">
-        <button type="button" className="btn toggle-btn" aria-pressed="false">
-          <span className="visually-hidden">Show </span>
-          <span>Active</span>
-          <span className="visually-hidden"> tasks</span>
-        </button>
-        <button type="button" className="btn toggle-btn" aria-pressed="false">
-          <span className="visually-hidden">Show </span>
-          <span>Completed</span>
-          <span className="visually-hidden"> tasks</span>
-        </button>
+        <FilterButton />
+        <FilterButton />
+        <FilterButton />
       </div>
       <h2 id="list-heading">3 tasks remaining</h2>
       <ul
