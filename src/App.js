@@ -1,7 +1,11 @@
 import React from "react";
+import { useState } from "react";
 import Todo from "./Components/Todo";
 import Form from "./Components/Form";
 import FilterButton from "./Components/FilterButton";
+
+const [tasks, setTasks] = useState(props.tasks);
+
 
 function App(props) {
   const taskList = props.tasks?.map((task) => (
@@ -14,7 +18,8 @@ function App(props) {
   ));
 
   function addTask(name) {
-    alert(name);
+    const newTask = { id: "id", name, completed: false };
+    setTasks([...tasks, newTask]);
   }
 
   return (
