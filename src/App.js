@@ -8,6 +8,11 @@ import FilterButton from "./Components/FilterButton";
 function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
 
+  function deleteTask(id) {
+    console.log(id);
+  }
+  
+
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map((task) => {
       // if this task has the same ID as the edited task
@@ -29,6 +34,7 @@ function App(props) {
       completed={task.completed}
       key={task.id}
       toggleTaskCompleted={toggleTaskCompleted}
+      deleteTask={deleteTask}
     />
   ));
 
