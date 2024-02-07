@@ -9,9 +9,9 @@ function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
 
   function deleteTask(id) {
-    console.log(id);
+    const remainingTasks = tasks.filter((task) => id !== task.id);
+    setTasks(remainingTasks);
   }
-  
 
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map((task) => {
@@ -25,7 +25,6 @@ function App(props) {
     });
     setTasks(updatedTasks);
   }
-  
 
   const taskList = tasks.map((task) => (
     <Todo
