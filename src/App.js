@@ -7,6 +7,15 @@ import FilterButton from "./Components/FilterButton";
 
 function App(props) {
   const [tasks, setTasks] = useState(props.tasks);
+  const [filter, setFilter] = useState("All");
+
+  const FILTER_MAP = {
+    All: () => true,
+    Active: (task) => !task.completed,
+    Completed: (task) => task.completed,
+  };
+
+  const FILTER_NAMES = Object.keys(FILTER_MAP);
 
   function editTask(id, newName) {
     const editedTaskList = tasks.map((task) => {
@@ -39,7 +48,9 @@ function App(props) {
     setTasks(updatedTasks);
   }
 
-  const taskList = tasks.map((task) => (
+  const taskList = tasks
+  .filter(FILTER_MAP[filter])
+  .map((task) => (
     <Todo
       id={task.id}
       name={task.name}
@@ -51,6 +62,16 @@ function App(props) {
     />
   ));
 
+
+  const filterList = FILTER_NAMES.map((name) => (
+    <FilterButton
+      key={name}
+      name={name}
+      isPressed={name === filter}
+      setFilter={setFilter}
+    />
+  ));
+  
   function addTask(name) {
     const newTask = { id: `todo-${nanoid()}`, name, completed: false };
     setTasks([...tasks, newTask]);
@@ -63,11 +84,7 @@ function App(props) {
       <h1>TodoMatic</h1>
       <Form addTask={addTask} />
 
-      <div className="filters btn-group stack-exception">
-        <FilterButton />
-        <FilterButton />
-        <FilterButton />
-      </div>
+      <div className="filters btn-group stack-exception">{filterList}</div>
       <h2 id="list-heading">{headingText}</h2>
 
       <ul
