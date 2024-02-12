@@ -18,12 +18,12 @@ function Todo(props) {
   const wasEditing = usePrevious(isEditing);
 
   useEffect(() => {
-    if (isEditing) {
+    if (!wasEditing && isEditing) {
       editFieldRef.current.focus();
-    } else {
+    } else if (wasEditing && !isEditing) {
       editButtonRef.current.focus();
     }
-  }, [isEditing]);
+  }, [wasEditing, isEditing]);
 
   function handleChange(e) {
     setNewName(e.target.value);
