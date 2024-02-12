@@ -1,11 +1,35 @@
 import { useEffect, useRef, useState } from "react";
 
+
+
+function usePrevious(value) {
+  const ref = useRef();
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
+}
+
+
 function Todo(props) {
   const editFieldRef = useRef(null);
   const editButtonRef = useRef(null);
 
+
   const [isEditing, setEditing] = useState(false);
   const [newName, setNewName] = useState("");
+
+  const wasEditing = usePrevious(isEditing);
+
+  useEffect(() => {
+    if (isEditing) {
+      editFieldRef.current.focus();
+    } else {
+      editButtonRef.current.focus();
+    }
+  }, [isEditing]);
+  
+
 
   function handleChange(e) {
     setNewName(e.target.value);
